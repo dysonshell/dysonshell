@@ -18,8 +18,13 @@ app.set('view engine', 'html');
 
 var render = require('./render');
 app.engine('html', render.engine(viewsRoot));
-app.use(render.middleware(viewsRoot));
+
+/* render middleware 应该是最后一个 middleware
+ * 所以不直接在这里 app.use() 而是给开发者 appendRender 方法
+ * 在 listen 之前调用 */
+app.appendRender = app.use.bind(app, render.middleware(viewsRoot));
 
 if (require.main === module) {
+    app.appendRender();
     require('http').createServer(app).listen(process.env.PORT || 4000);
 }
