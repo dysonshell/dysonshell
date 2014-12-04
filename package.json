@@ -1,0 +1,25 @@
+{
+  "name": "DysonShell",
+  "version": "0.0.0",
+  "description": "这里是 CreditCloud 前端团队集结集体智慧的地方。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CreditCloud/DysonShell.git"
+  },
+  "author": "CCFE",
+  "license": "private",
+  "bugs": {
+    "url": "https://github.com/CreditCloud/DysonShell/issues"
+  },
+  "homepage": "https://github.com/CreditCloud/DysonShell",
+  "dependencies": {
+    "ecstatic": "^0.5.7",
+    "express": "^4.10.4",
+    "lodash-node": "^2.4.1",
+    "ractive": "^0.6.1"
+  }
+}
