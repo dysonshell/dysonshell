@@ -19,8 +19,11 @@ app.engine('html', render.engine(viewsRoot));
 
 var assetsRoot = path.join(projectRoot, 'assets');
 var assets = require('./assets');
-app.use('/assets/css', assets.lessMiddleware(path.join(assetsRoot, 'css')));
-app.use('/assets/js/main', assets.jsMiddleware(path.join(assetsRoot, 'js', 'main')));
+if (app.get('env') === 'development') { // 只在开发环境做即时编译
+    app.use('/assets/css', assets.lessMiddleware(path.join(assetsRoot, 'css')));
+    app.use('/assets/js/main', assets.jsMiddleware(path.join(assetsRoot, 'js', 'main')));
+    app.get('/assets/js/lib.js', assets.getJsLib(path.join(assetsRoot, 'js', 'lib.json')));
+}
 app.use('/assets', ecstatic(assetsRoot));
 
 /* render middleware 应该是最后一个 middleware
