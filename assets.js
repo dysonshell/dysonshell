@@ -5,12 +5,12 @@ var path = require('path');
 var less = require('less');
 
 
-exports.lessMiddleware = function(assetsRoot) {
+exports.lessMiddleware = function(cssRoot) {
     return function(req, res, next) {
         if (!req.url.match(/\.css($|\?)/i)) {
             return next();
         }
-        var filePath = path.join(assetsRoot, 'css', req.path.replace(/\.css$/i, '.less'));
+        var filePath = path.join(cssRoot, req.path.replace(/\.css$/i, '.less'));
         fs.readFile(filePath, {
             encoding: 'utf-8'
         }, function(err, content) {
@@ -39,12 +39,12 @@ exports.lessMiddleware = function(assetsRoot) {
 };
 
 var browserify = require('browserify');
-exports.jsMiddleware = function(assetsRoot) {
+exports.jsMiddleware = function(browserifyRoot) {
     return function(req, res, next) {
         if (!req.url.match(/\.js($|\?)/i)) {
             return next();
         }
-        var filePath = path.join(assetsRoot, 'js', req.path);
+        var filePath = path.join(browserifyRoot, req.path);
         res.type('js');
         fs.exists(filePath, function(exists) {
             if (!exists) {
