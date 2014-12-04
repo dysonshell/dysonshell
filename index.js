@@ -19,8 +19,8 @@ app.engine('html', render.engine(viewsRoot));
 
 var assetsRoot = path.join(projectRoot, 'assets');
 var assets = require('./assets');
-app.use('/assets/css', assets.lessMiddleware(assetsRoot));
-app.use('/assets/js', assets.jsMiddleware(assetsRoot));
+app.use('/assets/css', assets.lessMiddleware(path.join(assetsRoot, 'css')));
+app.use('/assets/js/main', assets.jsMiddleware(path.join(assetsRoot, 'js', 'main')));
 app.use('/assets', ecstatic(assetsRoot));
 
 /* render middleware 应该是最后一个 middleware
