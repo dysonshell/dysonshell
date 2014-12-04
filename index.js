@@ -10,13 +10,18 @@ if (path.basename(projectRoot) === 'node_modules') {
     projectRoot = path.resolve(projectRoot, '..');
 }
 
-app.use('/assets', ecstatic(path.join(projectRoot, 'assets')));
 var viewsRoot = path.join(projectRoot, 'views');
 app.set('views', viewsRoot);
 app.set('view engine', 'html');
 
 var render = require('./render');
 app.engine('html', render.engine(viewsRoot));
+
+var assetsRoot = path.join(projectRoot, 'assets');
+var assets = require('./assets');
+app.use('/assets/css', assets.lessMiddleware(assetsRoot));
+app.use('/assets/js', assets.jsMiddleware(assetsRoot));
+app.use('/assets', ecstatic(assetsRoot));
 
 /* render middleware 应该是最后一个 middleware
  * 所以不直接在这里 app.use() 而是给开发者 appendRender 方法
