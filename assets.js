@@ -68,3 +68,26 @@ exports.jsMiddleware = function(browserifyRoot) {
         });
     };
 };
+
+exports.getJsLib = function(libJsonPath) {
+    return function(req, res, next) {
+        var content;
+        try {
+            content = JSON.parse(fs.readFileSync(libJsonPath), 'utf-8')
+            .filter(function (filename) {
+                return filename[0] === '.' && filename.match(/\.js$/i);
+            })
+            .map(function (filename) {
+                return path.resolve(path.dirname(libJsonPath), filename);
+            })
+            .map(function (filepath) {
+                return fs.readFileSync(filepath, 'utf-8');
+            })
+            .join(';\n\n');
+        } catch (err) {
+            return next(err);
+        }
+        res.type('js');
+        res.send(content);
+    };
+};
