@@ -6,8 +6,6 @@ var fs = require('fs');
 var zipObject = require('lodash-node/modern/arrays/zipObject');
 var env = process.env.NODE_ENV || 'development';
 
-exports = module.exports = renderPage;
-
 function getPartials(viewsRoot) { //TODO: production 优化，cache
     var partialsRoot = path.join(viewsRoot, '_partials');
     var partialPairs = fs.readdirSync(partialsRoot)
@@ -23,7 +21,7 @@ function getPartials(viewsRoot) { //TODO: production 优化，cache
         });
     return zipObject(partialPairs);
 }
-exports.engine = function(viewsRoot){
+exports.engine = function(viewsRoot) {
     return function(path, options, fn) {
         try {
             fn(null, new Ractive({
@@ -37,52 +35,53 @@ exports.engine = function(viewsRoot){
     };
 };
 
-
-var resolvedViewPath = {};
-function renderPage(req, res, next) {
-    var reqPath = req.path.replace(/\/$/, '');
-    if (res.viewPath) {
-        return render(res.viewPath);
-    }
-    var viewPath = path.join(__dirname, '..', 'views', reqPath);
-    if (env === 'production' && viewPath in resolvedViewPath) {
-        var rvp = resolvedViewPath[viewPath];
-        if (false === rvp) {
-            return notFound();
-        } else {
-            return render(rvp);
+exports.middleware = function(viewsRoot) {
+    var resolvedViewPath = {}; //TODO: refactory
+    return function(req, res, next) {
+        var reqPath = req.path.replace(/\/$/, '');
+        if (res.viewPath) {
+            return render(res.viewPath);
         }
-    }
-    findViewAndRender(viewPath + '.html', function() {
-        findViewAndRender(viewPath + '/index.html', notFound);
-    });
-
-    function notFound() { //TODO: fix it
-        resolvedViewPath[viewPath] = false;
-        res.statusCode = 404;
-        res.render('404');
-        next();
-    }
-
-    function findViewAndRender(viewPath, nf) {
-        fs.exists(viewPath, function(exists) {
-            if (!exists) {
-                return nf();
-            }
-            if (req.cookies && req.cookies.ccat) { // 更新 cookie 时间，保持 30 分钟登录
-                res.cookie('ccat', req.cookies.ccat, {
-                    maxAge: 30 * 60 * 1000,
-                    httpOnly: true
-                });
-            }
-            render(viewPath);
-        });
-    }
-
-    function render(rvp) {
+        var viewPath = path.join(viewsRoot, reqPath);
         if (env === 'production' && viewPath in resolvedViewPath) {
-            resolvedViewPath[viewPath] = rvp;
+            var rvp = resolvedViewPath[viewPath];
+            if (false === rvp) {
+                return notFound();
+            } else {
+                return render(rvp);
+            }
         }
-        res.render(rvp);
-    }
-}
+        findViewAndRender(viewPath + '.html', function() {
+            findViewAndRender(viewPath + '/index.html', notFound);
+        });
+
+        function notFound() { //TODO: fix it
+            resolvedViewPath[viewPath] = false;
+            res.statusCode = 404;
+            res.render('404');
+            next();
+        }
+
+        function findViewAndRender(viewPath, nf) {
+            fs.exists(viewPath, function(exists) {
+                if (!exists) {
+                    return nf();
+                }
+                if (req.cookies && req.cookies.ccat) { // 更新 cookie 时间，保持 30 分钟登录
+                    res.cookie('ccat', req.cookies.ccat, {
+                        maxAge: 30 * 60 * 1000,
+                        httpOnly: true
+                    });
+                }
+                render(viewPath);
+            });
+        }
+
+        function render(rvp) {
+            if (env === 'production' && viewPath in resolvedViewPath) {
+                resolvedViewPath[viewPath] = rvp;
+            }
+            res.render(rvp);
+        }
+    };
+};
