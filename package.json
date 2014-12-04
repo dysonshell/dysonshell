@@ -1,7 +1,7 @@
 {
-  "name": "DysonShell",
-  "version": "0.0.0",
-  "description": "这里是 CreditCloud 前端团队集结集体智慧的地方。",
+  "name": "dysonshell",
+  "version": "0.0.2",
+  "description": "CreditCloud P2P frontend framework",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

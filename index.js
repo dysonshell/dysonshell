@@ -6,9 +6,8 @@ var app, exports;
 app = exports = module.exports = express();
 
 var projectRoot = path.resolve(__dirname, '..');
-var modulesSubfixReg = /\/node_modules$/i;
-if (projectRoot.match(modulesSubfixReg)) {
-    projectRoot = projectRoot.replace(/\/node_modules$/i, '');
+if (path.basename(projectRoot) === 'node_modules') {
+    projectRoot = path.resolve(projectRoot, '..');
 }
 
 app.use('/assets', ecstatic(path.join(projectRoot, 'assets')));
