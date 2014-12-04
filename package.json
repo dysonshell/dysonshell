@@ -2,6 +2,11 @@
   "name": "dysonshell",
   "version": "0.0.3",
   "description": "CreditCloud P2P frontend framework",
+  "files": [
+    "assets.js",
+    "render.js",
+    "index.js"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,12 +21,14 @@
     "url": "https://github.com/CreditCloud/DysonShell/issues"
   },
   "homepage": "https://github.com/CreditCloud/DysonShell",
+  "peerDependencies": {
+    "ractive": "0.6.x"
+  },
   "dependencies": {
     "browserify": "^6.3.3",
     "ecstatic": "^0.5.7",
     "express": "^4.10.4",
     "less": "^2.1.1",
-    "lodash-node": "^2.4.1",
-    "ractive": "^0.6.1"
+    "lodash-node": "^2.4.1"
   }
 }
