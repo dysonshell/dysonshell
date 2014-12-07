@@ -1,6 +1,6 @@
 {
   "name": "dysonshell",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "CreditCloud P2P frontend framework",
   "files": [
     "assets.js",
