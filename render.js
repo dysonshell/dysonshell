@@ -25,7 +25,7 @@ exports.engine = function(viewsRoot) {
     return function(path, options, fn) {
         try {
             fn(null, new Ractive({
-                partials: getPartials(viewsRoot),
+                partials: options.partials,
                 template: fs.readFileSync(path, 'utf-8'), //TODO: production 优化，cache
                 data: options
             }).toHTML());
@@ -73,6 +73,7 @@ exports.middleware = function(viewsRoot) {
                         httpOnly: true
                     });
                 }
+                res.locals.partials = getPartials(viewsRoot);
                 render(viewPath);
             });
         }
