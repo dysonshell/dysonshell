@@ -21,8 +21,10 @@ var assetsRoot = path.join(projectRoot, 'assets');
 var assets = require('./assets');
 if (app.get('env') === 'development') { // 只在开发环境做即时编译
     app.use('/assets/css', assets.lessMiddleware(path.join(assetsRoot, 'css')));
-    app.use('/assets/js/main', assets.jsMiddleware(path.join(assetsRoot, 'js', 'main')));
-    app.get('/assets/js/lib.js', assets.getJsLib(path.join(assetsRoot, 'js', 'lib.json')));
+    app.use('/assets/js/main', assets.jsMiddleware(path.join(assetsRoot,
+        'js', 'main')));
+    app.get('/assets/js/lib.js', assets.getJsLib(path.join(assetsRoot, 'js',
+        'lib.json')));
 }
 app.use('/assets', ecstatic(assetsRoot));
 
@@ -33,5 +35,7 @@ app.appendRender = app.use.bind(app, render.middleware(viewsRoot));
 
 if (require.main === module) {
     app.appendRender();
-    require('http').createServer(app).listen(process.env.PORT || 4000);
+    require('http')
+        .createServer(app)
+        .listen(process.env.PORT || 4000);
 }

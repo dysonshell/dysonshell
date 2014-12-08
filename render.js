@@ -9,11 +9,12 @@ var env = process.env.NODE_ENV || 'development';
 function getPartials(viewsRoot) { //TODO: production 优化，cache
     var partialsRoot = path.join(viewsRoot, '_partials');
     var partialPairs = fs.readdirSync(partialsRoot)
-        .filter(function(filename) {
+        .filter(function (filename) {
             return filename.match(htmlExtReg) &&
-                fs.statSync(path.join(partialsRoot, filename)).isFile();
+                fs.statSync(path.join(partialsRoot, filename))
+                .isFile();
         })
-        .map(function(filename) {
+        .map(function (filename) {
             return [
                 filename.replace(htmlExtReg, ''),
                 fs.readFileSync(path.join(partialsRoot, filename), 'utf-8')
@@ -21,23 +22,25 @@ function getPartials(viewsRoot) { //TODO: production 优化，cache
         });
     return zipObject(partialPairs);
 }
-exports.engine = function(viewsRoot) {
-    return function(path, options, fn) {
+
+exports.engine = function (viewsRoot) {
+    return function (path, options, fn) {
         try {
             fn(null, new Ractive({
-                partials: options.partials,
-                template: fs.readFileSync(path, 'utf-8'), //TODO: production 优化，cache
-                data: options
-            }).toHTML());
+                    partials: options.partials,
+                    template: fs.readFileSync(path, 'utf-8'), //TODO: production 优化，cache
+                    data: options
+                })
+                .toHTML());
         } catch (err) {
             fn(err);
         }
     };
 };
 
-exports.middleware = function(viewsRoot) {
+exports.middleware = function (viewsRoot) {
     var resolvedViewPath = {}; //TODO: refactory
-    return function(req, res, next) {
+    return function (req, res, next) {
         var reqPath = req.path.replace(/\/$/, '');
         if (res.viewPath) {
             return render(res.viewPath);
@@ -51,7 +54,7 @@ exports.middleware = function(viewsRoot) {
                 return render(rvp);
             }
         }
-        findViewAndRender(viewPath + '.html', function() {
+        findViewAndRender(viewPath + '.html', function () {
             findViewAndRender(viewPath + '/index.html', notFound);
         });
 
@@ -63,7 +66,7 @@ exports.middleware = function(viewsRoot) {
         }
 
         function findViewAndRender(viewPath, nf) {
-            fs.exists(viewPath, function(exists) {
+            fs.exists(viewPath, function (exists) {
                 if (!exists) {
                     return nf();
                 }
