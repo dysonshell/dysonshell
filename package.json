@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/CreditCloud/DysonShell",
   "peerDependencies": {
-    "ractive": "0.6.x"
+    "ractive": "0.6.x",
+    "superagent": "^0.21.0"
   },
   "dependencies": {
     "browserify": "^6.3.4",
@@ -30,7 +31,6 @@
     "express": "^4.10.4",
     "express-expose": "^0.3.4",
     "less": "^2.1.1",
-    "lodash-node": "^2.4.1",
-    "superagent": "^0.21.0"
+    "lodash-node": "^2.4.1"
   }
 }
