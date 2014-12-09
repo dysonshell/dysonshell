@@ -17,6 +17,11 @@ require('express-expose')(app);
 app.set('state namespace', 'CC');
 
 var render = require('./render');
+app.get('/assets/js/partials.js', function(req, res) {
+    res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    res.expose(render.getPartials(viewsRoot), 'CC.partials');
+    res.end(res.locals.javascript);
+});
 
 var assetsRoot = path.join(projectRoot, 'assets');
 var assets = require('./assets');

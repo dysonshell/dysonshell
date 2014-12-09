@@ -6,6 +6,7 @@ var fs = require('fs');
 var zipObject = require('lodash-node/modern/arrays/zipObject');
 var env = process.env.NODE_ENV || 'development';
 
+exports.getPartials = getPartials;
 function getPartials(viewsRoot) { //TODO: production 优化，cache
     var partialsRoot = path.join(viewsRoot, '_partials');
     var partialPairs = fs.readdirSync(partialsRoot)
