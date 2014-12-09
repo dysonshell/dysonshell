@@ -17,7 +17,6 @@ require('express-expose')(app);
 app.set('state namespace', 'CC');
 
 var render = require('./render');
-app.engine('html', render.engine(viewsRoot));
 
 var assetsRoot = path.join(projectRoot, 'assets');
 var assets = require('./assets');
@@ -33,6 +32,7 @@ app.use('/assets', ecstatic(assetsRoot));
 /* render middleware 应该是最后一个 middleware
  * 所以不直接在这里 app.use() 而是给开发者 appendRender 方法
  * 在 listen 之前调用 */
+app.engine('html', render.engine);
 app.appendRender = app.use.bind(app, render.middleware(viewsRoot));
 
 if (require.main === module) {

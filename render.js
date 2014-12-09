@@ -23,19 +23,17 @@ function getPartials(viewsRoot) { //TODO: production 优化，cache
     return zipObject(partialPairs);
 }
 
-exports.engine = function (viewsRoot) {
-    return function (path, options, fn) {
-        try {
-            fn(null, new Ractive({
-                    partials: options.partials,
-                    template: fs.readFileSync(path, 'utf-8'), //TODO: production 优化，cache
-                    data: options
-                })
-                .toHTML());
-        } catch (err) {
-            fn(err);
-        }
-    };
+exports.engine = function (path, options, fn) {
+    try {
+        fn(null, new Ractive({
+                partials: options.partials,
+                template: fs.readFileSync(path, 'utf-8'), //TODO: production 优化，cache
+                data: options
+            })
+            .toHTML());
+    } catch (err) {
+        fn(err);
+    }
 };
 
 exports.middleware = function (viewsRoot) {

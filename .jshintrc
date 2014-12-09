@@ -50,7 +50,6 @@
     "supernew": false,
     "validthis": false,
     "browser": true,
-    "browserify": false,
     "couch": false,
     "devel": true,
     "dojo": false,
