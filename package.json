@@ -28,7 +28,9 @@
     "browserify": "^6.3.4",
     "ecstatic": "^0.5.7",
     "express": "^4.10.4",
+    "express-expose": "^0.3.4",
     "less": "^2.1.1",
-    "lodash-node": "^2.4.1"
+    "lodash-node": "^2.4.1",
+    "superagent": "^0.21.0"
   }
 }

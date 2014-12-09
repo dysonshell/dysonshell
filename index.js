@@ -13,6 +13,8 @@ if (path.basename(projectRoot) === 'node_modules') {
 var viewsRoot = path.join(projectRoot, 'views');
 app.set('views', viewsRoot);
 app.set('view engine', 'html');
+require('express-expose')(app);
+app.set('state namespace', 'CC');
 
 var render = require('./render');
 app.engine('html', render.engine(viewsRoot));
