@@ -23,6 +23,6 @@
   "homepage": "https://github.com/CreditCloud/DysonShell",
   "dependencies": {
     "express": "^4.10.6",
-    "express-expose": "^0.3.4",
+    "express-expose": "^0.3.4"
   }
 }
