@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/CreditCloud/DysonShell",
   "peerDependencies": {
+    "http-proxy": "^1.7.3",
     "lodash-node": "^2.4.1",
     "ractive": "0.6.x",
     "superagent": "^0.21.0"
