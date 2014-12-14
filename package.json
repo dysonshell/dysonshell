@@ -30,7 +30,7 @@
   "dependencies": {
     "browserify": "^6.3.4",
     "ecstatic": "^0.5.7",
-    "express": "^4.10.4",
+    "express": "^4.10.6",
     "express-expose": "^0.3.4",
     "less": "^2.1.1"
   }
