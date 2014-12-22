@@ -5,3 +5,4 @@ app = exports = module.exports = express();
 
 require('express-state').extend(app);
 app.set('state namespace', 'MY_APP');
+app.express = express;
