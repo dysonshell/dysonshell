@@ -21,10 +21,8 @@
     "url": "https://github.com/CreditCloud/DysonShell/issues"
   },
   "homepage": "https://github.com/CreditCloud/DysonShell",
-  "peerDependencies": {
-    "express": "^4.10.6"
-  },
   "dependencies": {
+    "express": "^4.10.6",
     "express-state": "^1.2.0"
   }
 }
