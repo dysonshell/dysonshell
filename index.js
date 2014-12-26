@@ -16,4 +16,5 @@ exports.createSubApp = function (subAppRoot) {
     subApp.on('mount', function (app) {
         subApp.set('views', [path.join(subAppRoot, 'views')].concat(app.get('views')));
     });
+    return subApp;
 };
