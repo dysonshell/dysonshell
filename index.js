@@ -6,7 +6,7 @@ var expstate = require('express-state');
 exports.createApp = function (appRoot) {
     var app = express();
     expstate.extend(app);
-    app.set('state namespace', 'MY_APP');
+    app.set('state namespace', 'CC');
     app.set('views', path.join(appRoot, 'views'));
     return app;
 };
