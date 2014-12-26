@@ -1,6 +1,6 @@
 {
   "name": "@ds/base",
-  "version": "0.0.11",
+  "version": "0.2.0",
   "description": "CreditCloud P2P frontend framework",
   "files": [
     "assets.js",
@@ -21,17 +21,8 @@
     "url": "https://github.com/CreditCloud/DysonShell/issues"
   },
   "homepage": "https://github.com/CreditCloud/DysonShell",
-  "peerDependencies": {
-    "http-proxy": "^1.7.3",
-    "lodash-node": "^2.4.1",
-    "ractive": "0.6.x",
-    "superagent": "^0.21.0"
-  },
   "dependencies": {
-    "browserify": "^6.3.4",
-    "ecstatic": "^0.5.7",
     "express": "^4.10.6",
-    "express-expose": "^0.3.4",
-    "less": "^2.1.1"
+    "express-state": "^1.2.0"
   }
 }

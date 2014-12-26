@@ -1,48 +1,19 @@
 'use strict';
 var path = require('path');
 var express = require('express');
-var ecstatic = require('ecstatic');
-var app, exports;
-app = exports = module.exports = express();
+var expstate = require('express-state');
 
-var projectRoot = path.resolve(__dirname, '..');
-if (path.basename(projectRoot) === 'node_modules') {
-    projectRoot = path.resolve(projectRoot, '..');
-}
+exports.createApp = function (appRoot) {
+    var app = express();
+    expstate.extend(app);
+    app.set('state namespace', 'MY_APP');
+    app.set('views', path.join(appRoot, 'views'));
+    return app;
+};
 
-var viewsRoot = path.join(projectRoot, 'views');
-app.set('views', viewsRoot);
-app.set('view engine', 'html');
-require('express-expose')(app);
-app.set('state namespace', 'CC');
-
-var render = require('./render');
-app.get('/assets/js/partials.js', function(req, res) {
-    res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
-    res.expose(render.getPartials(viewsRoot), 'CC.partials');
-    res.end(res.locals.javascript);
-});
-
-var assetsRoot = path.join(projectRoot, 'assets');
-var assets = require('./assets');
-if (app.get('env') === 'development') { // 只在开发环境做即时编译
-    app.use('/assets/css', assets.lessMiddleware(path.join(assetsRoot, 'css')));
-    app.use('/assets/js/main', assets.jsMiddleware(path.join(assetsRoot,
-        'js', 'main')));
-    app.get('/assets/js/lib.js', assets.getJsLib(path.join(assetsRoot, 'js',
-        'lib.json')));
-}
-app.use('/assets', ecstatic(assetsRoot));
-
-/* render middleware 应该是最后一个 middleware
- * 所以不直接在这里 app.use() 而是给开发者 appendRender 方法
- * 在 listen 之前调用 */
-app.engine('html', render.engine);
-app.appendRender = app.use.bind(app, render.middleware(viewsRoot));
-
-if (require.main === module) {
-    app.appendRender();
-    require('http')
-        .createServer(app)
-        .listen(process.env.PORT || 4000);
-}
+exports.createSubApp = function (subAppRoot) {
+    var subApp = express();
+    subApp.on('mount', function (app) {
+        subApp.set('views', [path.join(subAppRoot, 'views')].concat(app.get('views')));
+    });
+};
