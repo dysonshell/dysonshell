@@ -3,26 +3,36 @@
   "version": "0.2.2",
   "description": "CreditCloud P2P frontend framework",
   "files": [
-    "assets.js",
-    "render.js",
+    "loader.js",
+    "hooker.js",
     "index.js"
   ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CreditCloud/DysonShell.git"
+    "url": "ssh://git@gitlab.creditcloud.com:10022/ccfe/ds-base.git"
   },
   "author": "CCFE",
   "license": "private",
   "bugs": {
-    "url": "https://github.com/CreditCloud/DysonShell/issues"
+    "url": "http://gitlab.creditcloud.com/ccfe/ds-base/issues"
   },
-  "homepage": "https://github.com/CreditCloud/DysonShell",
+  "homepage": "http://gitlab.creditcloud.com/ccfe/ds-base",
+  "peerDependencies": {
+    "@ds/cccglob": "*",
+    "@ds/common": "*",
+    "bunyan-hub-logger": "*",
+    "express": "*"
+  },
   "dependencies": {
-    "express": "^4.10.6",
-    "express-state": "^1.2.0"
+    "@ds/cccglob": "*",
+    "@ds/nrequire": "*",
+    "bunyan-hub-logger": "*",
+    "co": "^4",
+    "express": "*",
+    "fn-params": "0.0.1"
   }
 }
