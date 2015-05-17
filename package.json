@@ -34,5 +34,8 @@
     "co": "^4",
     "express": "*",
     "fn-params": "0.0.1"
+  },
+  "devDependencies": {
+    "tape": "^4.0.0"
   }
 }

@@ -16,6 +16,8 @@ module.exports = function load(app) {
         }
         var routerModule = require.cache[routerPath];
         var router = express();
+        // TODO: check router conflicts
+        /*
         router.use(function (req, res, next) {
             if (req.routerFactoryModule) {
                 return next(new Error('为避免冲突不能在不同的模块里处理相同的 url。冲突的 module：' +
@@ -24,6 +26,7 @@ module.exports = function load(app) {
             req.routerFactoryModule = routerModule;
             next();
         });
+        */
         routerFactory(router);
         var hookPath = path.join(path.dirname(routerPath), 'hook.js');
         if (fs.existsSync(hookPath)) {
@@ -43,20 +46,13 @@ module.exports = function load(app) {
         }
         var routerModule = require.cache[hookPath];
         var router = express();
-        router.use(function (req, res, next) {
-            if (req.routerFactoryModule) {
-                return next(new Error('为避免冲突不能在不同的模块里处理相同的 url。冲突的 module：' +
-                    req.routerFactoryModule.filename + ' vs ' + hookPath));
-            }
-            req.routerFactoryModule = routerModule;
-            next();
-        });
+        router.factoryModule = routerModule;
         hooker(hook, router);
         hook.loaded = true;
         app.use(router);
     });
     app.use(function (req, res, next) {
-        delete req.routerFactoryModule;
+        delete req.routerFactoryModule; // clear for @ds/render to auto resolve view path
         next();
     });
 };
