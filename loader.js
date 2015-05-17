@@ -16,6 +16,7 @@ module.exports = function load(app) {
         }
         var routerModule = require.cache[routerPath];
         var router = express();
+        router.factoryModule = routerModule;
         // TODO: check router conflicts
         /*
         router.use(function (req, res, next) {
@@ -32,6 +33,7 @@ module.exports = function load(app) {
         if (fs.existsSync(hookPath)) {
             log.trace('loading hook ' + hookPath);
             var hook = require(hookPath);
+            router.factoryModule = require.cache[hookPath];
             hooker(hook, router);
             hook.loaded = true;
         }
