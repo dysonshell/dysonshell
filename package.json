@@ -1,6 +1,6 @@
 {
   "name": "@ds/base",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CreditCloud P2P frontend framework",
   "files": [
     "loader.js",
