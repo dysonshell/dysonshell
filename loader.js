@@ -55,4 +55,8 @@ module.exports = function load(app) {
         hook.loaded = true;
         app.use(router);
     });
+    app.use(function (req, res, next) {
+        delete req.routerFactoryModule;
+        next();
+    });
 };
