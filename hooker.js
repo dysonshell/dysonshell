@@ -96,6 +96,9 @@ function hooker(plugin, router) {
                 }
                 response = yield Promise.props(response);
                 var exposed = yield Promise.props(res.__expose);
+                Object.keys(exposed, function (key) {
+                    res.expose(exposed[key], key);
+                });
                 res.locals = _.assign(res.locals, yield Promise.props(response.locals || {}));
                 res.locals.title = res.locals.title || response.title;
                 if (response.view === false) {
