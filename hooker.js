@@ -95,11 +95,12 @@ function hooker(plugin, router) {
                     return res.redirect(302, response.redirect);
                 }
                 response = yield Promise.props(response);
+                //res.expose(exposed[key], key);
+                res.locals = _.assign(res.locals, yield Promise.props(response.locals || {}));
                 var exposed = yield Promise.props(res.__expose);
-                Object.keys(exposed, function (key) {
+                Object.keys(exposed).forEach(function (key) {
                     res.expose(exposed[key], key);
                 });
-                res.locals = _.assign(res.locals, yield Promise.props(response.locals || {}));
                 res.locals.title = res.locals.title || response.title;
                 if (response.view === false) {
                     return res.json(res.locals);
@@ -107,7 +108,6 @@ function hooker(plugin, router) {
                 if (response.layout === false) {
                     res.layout = false;
                 }
-                console.log(response);
                 return response.view ?
                     res.render(response.view) :
                     res.render();
