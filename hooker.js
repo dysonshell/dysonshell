@@ -27,6 +27,12 @@ function hooker(plugin, router) {
             get params() {
                 return req.params;
             },
+            get fetch() {
+                return req.fetch;
+            },
+            get request() {
+                return req.uest;
+            },
             get data() {
                 return req.data;
             },
