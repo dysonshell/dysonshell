@@ -52,11 +52,7 @@ function hooker(plugin, router) {
             },
             get redirect() {
                 return function redirect(url, status) {
-                    return {
-                        __redirect: true,
-                        url: url,
-                        status: status || 302
-                    };
+                    return { redirect: !!Number(status) ? [status, url] : url };
                 };
             }
         }[key];
