@@ -1,11 +1,10 @@
 'use strict';
 var path = require('path');
 
-if (app.get('env') !== 'production') {
-    module.exports = function () {};
-    return;
-}
-module.exports = function expose(app) {
+module.exports = function prodrev(app) {
+    if (app.get('env') !== 'production') {
+        return;
+    }
     app.response.send = (function (send) {
         var rewriter = require('@ds/rewriter');
         var revMap = require(path.join((GLOBAL.APP_ROOT || './'), 'dist/rev.json'));
