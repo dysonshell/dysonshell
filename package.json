@@ -5,6 +5,10 @@
   "files": [
     "loader.js",
     "hooker.js",
+    "apiproxy.js",
+    "expose.js",
+    "prodrev.js",
+    "request.js",
     "index.js"
   ],
   "main": "index.js",
