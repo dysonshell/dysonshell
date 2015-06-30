@@ -15,19 +15,9 @@ module.exports = function load(app) {
             return;
         }
         var routerModule = require.cache[routerPath];
-        var router = express();
+        var router = express.Router();
         router.factoryModule = routerModule;
-        // TODO: check router conflicts
-        /*
-        router.use(function (req, res, next) {
-            if (req.routerFactoryModule) {
-                return next(new Error('为避免冲突不能在不同的模块里处理相同的 url。冲突的 module：' +
-                    req.routerFactoryModule.filename + ' vs ' + routerPath));
-            }
-            req.routerFactoryModule = routerModule;
-            next();
-        });
-        */
+        router.use(addRouterFactory(routerModule));
         routerFactory(router);
         var hookPath = path.join(path.dirname(routerPath), 'hook.js');
         if (fs.existsSync(hookPath)) {
@@ -37,6 +27,7 @@ module.exports = function load(app) {
             hooker(hook, router);
             hook.loaded = true;
         }
+        router.use(removeRouterFactory());
         app.use(router);
     });
     cccglob.sync('ccc/*/hook.js').forEach(function (hookName) {
@@ -47,14 +38,26 @@ module.exports = function load(app) {
             return;
         }
         var routerModule = require.cache[hookPath];
-        var router = express();
+        var router = express.Router();
         router.factoryModule = routerModule;
+        router.use(addRouterFactory(routerModule));
         hooker(hook, router);
+        router.use(removeRouterFactory());
         hook.loaded = true;
         app.use(router);
     });
-    app.use(function (req, res, next) {
+};
+
+function addRouterFactory(factoryModule) {
+    return function (req, res, next) {
+        req.routerFactoryModule = factoryModule;
+        next();
+    };
+}
+
+function removeRouterFactory() {
+    return function (req, res, next) {
         delete req.routerFactoryModule; // clear for @ds/render to auto resolve view path
         next();
-    });
-};
+    };
+}
