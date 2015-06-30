@@ -78,11 +78,6 @@ function hooker(plugin, router) {
                 injectList = functionOrInjectList;
             }
             router.get(path, conext(function *(req, res, next) {
-                if (req.routerFactoryModule && req.routerFactoryModule !== router.factoryModule) {
-                    return next(new Error('为避免冲突不能在不同的模块里处理相同的 url。冲突的 module：' +
-                        req.routerFactoryModule.filename + ' vs ' + router.factoryModule.filename));
-                }
-                req.routerFactoryModule = router.factoryModule;
                 res.__expose = res.__expose || {};
                 var response = yield Promise.resolve(
                     fn.apply(null, injectList.map(getDep.bind(null, req))) || {});
