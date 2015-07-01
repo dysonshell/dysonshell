@@ -61,3 +61,29 @@ function removeRouterFactory() {
         next();
     };
 }
+
+function getComponentName(componentPath) {
+console.log(arguments);
+    var componentRelativePath = componentPath.replace(/.*\/@?ccc\//, '');
+    var componentName = componentRelativePath.split('/')[0];
+    console.log(componentName);
+    return componentName;
+}
+
+function getPrefixFromComponentName(componentName) {
+console.log(arguments);
+    var dirs = componentName.split('__');
+    var lastDir = dirs.pop();
+    if (lastDir && lastDir !== 'index') {
+        dirs.push(lastDir);
+    }
+    var prefix = dirs.join('/');
+    if (prefix[0] !== '/') {
+        prefix = '/' + prefix;
+    }
+    if (prefix[prefix.length - 1] !== '/') {
+        prefix = prefix + '/';
+    }
+    console.log(prefix);
+    return prefix;
+}
