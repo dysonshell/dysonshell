@@ -5,7 +5,34 @@ var cccglob = require('@ds/cccglob');
 var log = require('bunyan-hub-logger')({app: 'web', name: 'loader'});
 var express = require('express');
 var hooker = require('./hooker');
-var methods = require('methods');
+var methods = [
+    "checkout",
+    "connect",
+    "copy",
+    "delete",
+    "get",
+    "head",
+    "lock",
+    "m-search",
+    "merge",
+    "mkactivity",
+    "mkcol",
+    "move",
+    "notify",
+    "options",
+    "patch",
+    "post",
+    "propfind",
+    "proppatch",
+    "purge",
+    "put",
+    "report",
+    "search",
+    "subscribe",
+    "trace",
+    "unlock",
+    "unsubscribe"
+];
 var env = process.env.NODE_ENV || 'development';
 var isUat = process.env.NODE_APP_INSTANCE === 'uat';
 
