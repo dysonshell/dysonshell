@@ -76,9 +76,7 @@ module.exports = function load(app) {
         if (fs.existsSync(hookPath)) {
             log.trace('loading hook ' + hookPath);
             var hook = require(hookPath);
-            var router = createRouter(require.cache[hookPath]);
             hooker(hook, router);
-            app.use(router);
             hook.loaded = true;
         }
         router._use(removeRouterFactory());
