@@ -21,6 +21,15 @@ function hooker(plugin, router) {
             get next() {
                 return __next;
             },
+            get reqQuery() {
+                return req.query;
+            },
+            get reqParams() {
+                return req.params;
+            },
+            get reqPath() {
+                return req.path;
+            },
             get query() {
                 return req.query;
             },
