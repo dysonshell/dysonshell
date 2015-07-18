@@ -2,12 +2,9 @@
 var path = require('path');
 
 module.exports = function prodrev(app) {
-    if (app.get('env') !== 'production') {
-        return;
-    }
     app.response.send = (function (send) {
         var rewriter = require('@ds/rewriter');
-        var revMap = require(path.join((GLOBAL.APP_ROOT || './'), 'dist/rev.json'));
+        var revMap = app.get('env') === 'production' ? require(path.join((GLOBAL.APP_ROOT || './'), 'dist/rev.json')) : {};
         return function () {
             var res = this;
             var args = Array.prototype.slice.call(arguments);

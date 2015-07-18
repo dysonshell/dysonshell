@@ -1,5 +1,6 @@
 'use strict';
 var params = require('fn-params');
+var ccBody = require('cc-body');
 var co = require('co');
 module.exports = hooker;
 
@@ -78,7 +79,9 @@ function hooker(plugin, router) {
                 }
             });
         },
-        get: function (path, functionOrInjectList, fn) {
+    };
+    'get post put delete patch'.split(' ').forEach(function (method) {
+        hook[method] = function (path, functionOrInjectList, fn) {
             var injectList;
             if (typeof functionOrInjectList === 'function') {
                 fn = functionOrInjectList;
@@ -86,7 +89,11 @@ function hooker(plugin, router) {
             } else {
                 injectList = functionOrInjectList;
             }
-            router.get(path, conext(function *(req, res, next) {
+            var middlewares = [path, ];
+            if (method !== 'get') {
+                middlewares.push(ccBody);
+            }
+            middlewares.push(conext(function *(req, res, next) {
                 res.__expose = res.__expose || {};
                 var response = yield Promise.resolve(
                     fn.apply(null, injectList.map(getDep.bind(null, req))) || {});
@@ -118,7 +125,8 @@ function hooker(plugin, router) {
                     res.render(response.view) :
                     res.render();
             }));
-        },
-    };
+            router[method].apply(router, middlewares);
+        };
+    });
     plugin(hook);
 }
