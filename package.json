@@ -3,13 +3,13 @@
   "version": "2.1.0",
   "description": "CreditCloud P2P frontend framework",
   "files": [
-    "loader.js",
-    "hooker.js",
     "apiproxy.js",
     "expose.js",
+    "hooker.js",
+    "index.js",
+    "loader.js",
     "prodrev.js",
-    "request.js",
-    "index.js"
+    "request.js"
   ],
   "main": "index.js",
   "scripts": {
@@ -37,6 +37,7 @@
     "@ds/rewriter": "^0.1.0",
     "bunyan-hub-logger": "*",
     "co": "^4",
+    "conext": "^1.2.1",
     "express": "*",
     "express-req-uest": "^4.0.2",
     "express-state": "^1.2.0",

@@ -2,14 +2,8 @@
 var params = require('fn-params');
 var ccBody = require('cc-body');
 var co = require('co');
+var conext = require('conext');
 module.exports = hooker;
-
-function conext(g) {
-    var cw = co.wrap(g);
-    return function (req, res, next) {
-        cw(req, res, next).catch(next);
-    }
-}
 
 function hooker(plugin, router) {
     var __next = {
@@ -56,9 +50,6 @@ function hooker(plugin, router) {
                 return function (keypath, obj) {
                     res.__expose[keypath] = obj;
                 }
-            },
-            get format() {
-                return format;
             },
             get redirect() {
                 return function redirect(url, status) {
@@ -120,6 +111,8 @@ function hooker(plugin, router) {
                 }
                 if (response.layout === false) {
                     res.layout = false;
+                } else if (typeof response.layout === 'string') {
+                    res.layout = response.layout;
                 }
                 return response.view ?
                     res.render(response.view) :
