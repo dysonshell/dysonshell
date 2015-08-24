@@ -63,7 +63,7 @@ function hooker(plugin, router) {
             titlePairs.forEach(function (titlePair) {
                 if (!Array.isArray(titlePair)) return;
                 if (typeof titlePair[1] === 'string') {
-                    router.all(titlePair, function (req, res, next) {
+                    router.all(titlePair[0], function (req, res, next) {
                         res.locals.title = titlePair[1];
                         next();
                     });
