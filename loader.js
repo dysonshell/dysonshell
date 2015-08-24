@@ -47,8 +47,8 @@ function createRouter(routerModule) {
     methods.concat('all').forEach(function(m){
         router[m] = (function(origMethod) {
             return function (routePath) {
-                if (typeof routePath !== 'string') {
-                    throw new Error('router/hook path 必须为字符串');
+                if (typeof routePath !== 'string' && !(routePath instanceof RegExp)) {
+                    throw new Error('router/hook path 必须为字符串或正则表达式');
                 }
                 var args = [].slice.apply(arguments);
                 var dreg = /^(\/*)\./;
