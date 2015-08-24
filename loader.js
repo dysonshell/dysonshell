@@ -52,7 +52,7 @@ function createRouter(routerModule) {
                 }
                 var args = [].slice.apply(arguments);
                 var dreg = /^(\/*)\./;
-                var startedWithDot = routePath.match(dreg);
+                var startedWithDot = typeof routePath !== 'string' && routePath.match(dreg);
                 routePath = routePath.replace(dreg, '$1');
                 if (env === 'production' && !isUat) {
                     // 生产环境不限制前缀（假设开发和测试已经保证没问题）
