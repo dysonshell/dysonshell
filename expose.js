@@ -9,4 +9,4 @@ module.exports = function expose(app, namespace) {
         res.expose(process.env.NODE_APP_INSTANCE, 'process.env.NODE_APP_INSTANCE');
         next();
     });
-e;
+};
