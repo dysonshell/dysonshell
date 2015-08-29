@@ -172,6 +172,7 @@ hook.all(/^\/account(\/.*)?$/, function (locals, next) {
     locals.isInAccount = true;
     return next; // 这里 next 是 {next: true}
 });
+```
 
 ##### redirect
 
