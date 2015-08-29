@@ -25,13 +25,16 @@ function hooker(plugin, router) {
             get reqPath() {
                 return req.path;
             },
-            get query() {
+            get reqUrl() {
+                return req.url;
+            },
+            get query() { // deprecated, use reqQuery
                 return req.query;
             },
-            get params() {
+            get params() { // deprecated, use reqParams
                 return req.params;
             },
-            get fetch() {
+            get fetch() { // deprecated, use request
                 return req.fetch;
             },
             get request() {
@@ -89,7 +92,7 @@ function hooker(plugin, router) {
                 var response = yield Promise.resolve(
                     fn.apply(null, injectList.map(getDep.bind(null, req))) || {});
                 if (response === __next ||
-                    response.next === true) {
+                    (response = yield Promise.props(response)).next === true) {
                     return next();
                 }
                 if (response.redirect) {
@@ -98,22 +101,26 @@ function hooker(plugin, router) {
                     }
                     return res.redirect(302, response.redirect);
                 }
-                response = yield Promise.props(response);
-                //res.expose(exposed[key], key);
-                res.locals = _.assign(res.locals, yield Promise.props(response.locals || {}));
-                var exposed = yield Promise.props(res.__expose);
+
+                var locals = yield Promise.props(response.locals || {});
+                if (response.view === false) {
+                    return res.json(locals);
+                }
+
+                _.assign(res.locals, locals);
+                res.locals.title = res.locals.title || response.title;
+
+                var exposed = yield Promise.props(_.assign(response.exposed, res.__expose));
                 Object.keys(exposed).forEach(function (key) {
                     res.expose(exposed[key], key);
                 });
-                res.locals.title = res.locals.title || response.title;
-                if (response.view === false) {
-                    return res.json(res.locals);
-                }
+
                 if (response.layout === false) {
                     res.layout = false;
                 } else if (typeof response.layout === 'string') {
                     res.layout = response.layout;
                 }
+
                 return response.view ?
                     res.render(response.view) :
                     res.render();
