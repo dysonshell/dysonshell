@@ -1,6 +1,6 @@
 {
   "name": "@ds/base",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "CreditCloud P2P frontend framework",
   "files": [
     "apiproxy.js",
