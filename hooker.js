@@ -110,7 +110,7 @@ function hooker(plugin, router) {
                 _.assign(res.locals, locals);
                 res.locals.title = res.locals.title || response.title;
 
-                var exposed = yield Promise.props(_.assign(response.exposed, res.__expose));
+                var exposed = yield Promise.props(_.assign(response.exposed || {}, res.__expose));
                 Object.keys(exposed).forEach(function (key) {
                     res.expose(exposed[key], key);
                 });
