@@ -2,6 +2,9 @@
 require('http').globalAgent.maxSockets = Infinity
 require('https').globalAgent.maxSockets = Infinity
 var proagent = require('promisingagent');
+var config = require('config');
+var allowCookie = config.dsRequestAllowCookie || ['dsat'];
+var pairSplitRegExp = /; */;
 
 module.exports = function expose(app, urlBackend) {
     app.use(require('cookie-parser')());
@@ -13,8 +16,20 @@ module.exports = function expose(app, urlBackend) {
         }
         var headers = {};
         headers['X-Forwarded-For'] = ips.join(', ');
-        if (req.cookies.ccat) {
-            headers.Authorization = 'Bearer ' + req.cookies.ccat;
+        var cookiePairs;
+        if (allowCookie !== false && req.headers.cookie) {
+            cookiePairs = req.headers.cookie.split(pairSplitRegExp);
+        }
+        if (cookiePairs) {
+            if (allowCookie === true) {
+                headers['set-cookie'] = cookiePairs;
+            } else if (Array.isArray(allowCookie)) {
+                headers['set-cookie'] = cookiePairs.filter(function (cookieStr) {
+                    return allowCookie.some(function (ac) {
+                        cookieStr.indexOf(ac + '=') === 0;
+                    });
+                })
+            }
         }
         if (req.header('Authorization')) {
             headers.Authorization = req.header('Authorization');

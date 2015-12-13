@@ -2,11 +2,10 @@
 var httpProxy = require('http-proxy');
 var url = require('url');
 
-module.exports = function expose(app, urlBackend, namespace) {
+module.exports = function expose(app, urlBackend) {
     if (typeof urlBackend !== 'string') {
         throw new Error('urlBackend must be string');
     }
-    app.set('state namespace', (namespace || 'CC'));
     var proxyApi = httpProxy.createProxyServer({
         target: urlBackend.replace(/\/$/, '') + '/api'
     });

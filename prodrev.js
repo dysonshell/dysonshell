@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = function prodrev(app) {
     app.response.send = (function (send) {
-        var rewriter = require('@ds/rewriter');
+        var rewriter = require('ds-rewriter');
         var revMap = app.get('env') === 'production' ? require(path.join((GLOBAL.APP_ROOT || './'), 'dist/rev.json')) : {};
         return function () {
             var res = this;

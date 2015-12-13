@@ -1,11 +1,10 @@
 {
-  "name": "@ds/base",
-  "version": "2.5.1",
-  "description": "CreditCloud P2P frontend framework",
+  "name": "dysonshell",
+  "version": "0.0.0",
+  "description": "dysonshell frontend framework",
   "files": [
     "apiproxy.js",
     "expose.js",
-    "hooker.js",
     "index.js",
     "loader.js",
     "prodrev.js",
@@ -17,24 +16,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@gitlab.creditcloud.com:10022/ccfe/ds-base.git"
+    "url": "ssh://git@github.com/dysonshell/dysonshell.git"
   },
-  "author": "CCFE",
-  "license": "private",
+  "author": "undoZen <opensource@undozen.com>",
+  "license": "MIT",
   "bugs": {
-    "url": "http://gitlab.creditcloud.com/ccfe/ds-base/issues"
+    "url": "https://github.com/dysonshell/dysonshell/issues"
   },
-  "homepage": "http://gitlab.creditcloud.com/ccfe/ds-base",
+  "homepage": "https://github.com/dysonshell/dysonshell",
   "peerDependencies": {
-    "@ds/cccglob": "*",
-    "@ds/common": "*",
-    "bunyan-hub-logger": "*",
-    "express": "*"
+    "ds-glob": "^1",
+    "config": "^1",
+    "bunyan-hub-logger": "^1",
+    "express": "^4"
   },
   "dependencies": {
-    "@ds/cccglob": "*",
-    "@ds/nrequire": "*",
-    "@ds/rewriter": "^0.1.0",
+    "ds-glob": "^1",
+    "ds-nrequire": "^1",
+    "ds-rewriter": "^1",
     "bunyan-hub-logger": "*",
     "co": "^4",
     "conext": "^1.2.1",
