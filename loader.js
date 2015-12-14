@@ -1,12 +1,21 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
+var assert = require('assert');
 var dsGlob = require('ds-glob');
 var log = require('bunyan-hub-logger')({app: 'web', name: 'loader'});
 var express = require('express');
+var config = require('config');
+assert(config.dsAppRoot);
+// config
+var APP_ROOT = config.dsAppRoot;
+var DSC = config.dsComponentPrefix || 'dsc';
+var DSCns = DSC.replace(/^\/+/, '').replace(/\/+$/, '');
+DSC = DSCns + '/';
 
-module.exports = function load(app) {
-    dsGlob.sync(DSC + '*/router.js').forEach(function (routerName) {
+module.exports = function load(routerName) {
+    var exportRouter = express.Router();
+    dsGlob.sync(DSC + '*/routers/'+routerName+'.js').forEach(function (routerName) {
         var routerPath = require.resolve(routerName);
         log.trace('loading router ' + routerPath);
         var routerFactory = require(routerName);
@@ -17,8 +26,9 @@ module.exports = function load(app) {
         routerFactory(router);
         router.use(removeRouterFactory());
         var prefix = '/' + getComponentName(routerPath);
-        app.use(prefix, router);
+        exportRouter.use(prefix, router);
     });
+    return exportRouter;
 };
 
 function addRouterFactory(factoryModule) {
