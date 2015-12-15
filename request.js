@@ -16,21 +16,23 @@ module.exports = function expose(app, urlBackend) {
         }
         var headers = {};
         headers['X-Forwarded-For'] = ips.join(', ');
-        var cookiePairs;
-        if (allowCookie !== false && req.headers.cookie) {
-            cookiePairs = req.headers.cookie.split(pairSplitRegExp);
-        }
-        if (cookiePairs) {
+
+        if (allowCookie !== false && Object.keys(req.cookies).length) {
             if (allowCookie === true) {
-                headers['set-cookie'] = cookiePairs;
+                headers.Cookie = req.cookies;
             } else if (Array.isArray(allowCookie)) {
-                headers['set-cookie'] = cookiePairs.filter(function (cookieStr) {
-                    return allowCookie.some(function (ac) {
-                        cookieStr.indexOf(ac + '=') === 0;
-                    });
-                })
+                var cookies = {};
+                _.each(req.cookies, function (value, key) {
+                    if (allowCookie.indexOf(key) > -1) {
+                        cookies[key] = value;
+                    }
+                });
+                if (Object.keys(cookies)) {
+                    headers.Cookie = cookies;
+                }
             }
         }
+
         if (req.header('Authorization')) {
             headers.Authorization = req.header('Authorization');
         }
