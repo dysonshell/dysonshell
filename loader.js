@@ -16,7 +16,7 @@ DSC = DSCns + '/';
 module.exports = function load(routerPrefix) {
     var exportRouter = express.Router();
     dsGlob.sync(DSC + '*/routers/'+routerPrefix+'.js').forEach(function (routerName) {
-        console.log(routerName);
+        console.log('loading router from file "' + routerName + '"');
         var routerPath = require.resolve(routerName);
         log.trace('loading router ' + routerPath);
         var routerFactory = require(routerName);
