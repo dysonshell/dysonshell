@@ -3,6 +3,7 @@
   "version": "1.0.5",
   "description": "dysonshell frontend framework",
   "files": [
+    "init.js",
     "apiproxy.js",
     "expose.js",
     "index.js",
@@ -12,6 +13,7 @@
   ],
   "main": "index.js",
   "scripts": {
+    "postinstall": "node init.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
@@ -48,5 +50,5 @@
   },
   "devDependencies": {
     "tape": "^4.0.0"
-  }
+  },
 }
