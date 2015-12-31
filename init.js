@@ -8,8 +8,9 @@ var cpr = require('cpr');
 var rimraf = require('rimraf');
 
 function exists(filePath) {
+    var args = [].slice.call(arguments);
     return new Promise(function (resolve) {
-        fs.exists(path.resolve.apply(path, [__dirname].concat([].slice.call(arguments))), resolve);
+        fs.exists(path.resolve.apply(path, [__dirname].concat(args)), resolve);
     });
 }
 
