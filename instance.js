@@ -26,10 +26,9 @@ var dscPath = path.join(config.dsAppRoot, config.dsComponentPrefix);
 
 app.handle = (function (_handle) {
     return function () {
-        console.log(111);
         // these middlewares should be used in the end or all layers
         if (app.get('env') === 'development') {
-            require('ds-pack').watchify(app, port);
+            ds.watchify(app, port);
         } else {
             app.enable('view cache');
         }

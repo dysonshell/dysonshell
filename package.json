@@ -11,6 +11,9 @@
     "instance.js",
     "request.js"
   ],
+  "directories": {
+    "example": "examples/init"
+  },
   "main": "index.js",
   "scripts": {
     "postinstall": "node init.js",
@@ -27,26 +30,25 @@
   },
   "homepage": "https://github.com/dysonshell/dysonshell",
   "peerDependencies": {
-    "ds-glob": "^1",
-    "config": "^1",
     "express": "^4"
   },
   "dependencies": {
-    "bluebird": "^3",
+    "bluebird": "^3.1.1",
     "coexpress": "^2",
     "conext": "^2",
     "cookie-parser": "^1",
+    "cpr": "^1.0.0",
     "ds-glob": "^1",
     "ds-pack": "^1",
     "ds-render": "^2",
     "ds-require": "^1",
     "ecstatic": "^1",
-    "express": "^4",
     "express-favicon": "^1",
     "express-state": "^1",
     "http-proxy": "^1",
     "lodash": "^3",
-    "promisingagent": "^4"
+    "promisingagent": "^4",
+    "rimraf": "^2.5.0"
   },
   "devDependencies": {
     "tape": "^4.0.0"
