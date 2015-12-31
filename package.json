@@ -3,6 +3,7 @@
   "version": "1.0.8",
   "description": "dysonshell frontend framework",
   "files": [
+    "examples/init/",
     "init.js",
     "apiproxy.js",
     "expose.js",
@@ -12,7 +13,7 @@
     "request.js"
   ],
   "directories": {
-    "example": "examples/init"
+    "example": "examples/init/"
   },
   "main": "index.js",
   "scripts": {
