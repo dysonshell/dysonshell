@@ -19,7 +19,7 @@ function mexists(module) {
 }
 
 function rdexists(relativeDirectoryPath) {
-    return exists.apply(null, [__dirname, '..', '..'].concat([].slice.call(arguments)));
+    return exists.apply(null, ['..', '..'].concat([].slice.call(arguments)));
 }
 
 Promise.coroutine(function* () {
@@ -51,24 +51,20 @@ Promise.coroutine(function* () {
         return;
     }
 
-    child = spawn(process.env.npm_node_execpath, [
+    cpr(path.join(__dirname, 'examples', 'init'), path.resolve(__dirname, '..', '..'), function (err, files) {
+        if (err) {
+            console.log(err);
+        }
+        console.log('copied files:\n', files.join('\n'), '\n');
+    });
+
+    spawn(process.env.npm_node_execpath, [
             process.env.npm_execpath,
             'install', '--save',
             'bluebird', 'lodash', 'ractive', 'qs', 'moment', 'promisingagent',
     ], {
         cwd: path.resolve(__dirname, '..', '..'),
         stdio: 'inherit',
-    });
-    yield new Promise(function (resolve, reject) {
-        child.on('end', resolve);
-        child.on('error', reject);
-    });
-
-    cpr(path.join(__dirname, 'examples', 'init'), path.resolve(__dirname, '..', '..'), function (err, files) {
-        if (err) {
-            console.log(err);
-        }
-        console.log('copied files:\n', files.join('\n'));
     });
 
 })();
