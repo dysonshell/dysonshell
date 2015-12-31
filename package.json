@@ -27,12 +27,10 @@
   "peerDependencies": {
     "ds-glob": "^1",
     "config": "^1",
-    "bunyan-hub-logger": "^1",
     "express": "^4"
   },
   "dependencies": {
     "bluebird": "^3",
-    "bunyan-hub-logger": "^1",
     "coexpress": "^2",
     "conext": "^2",
     "cookie-parser": "^1",

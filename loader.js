@@ -3,7 +3,6 @@ var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
 var dsGlob = require('ds-glob');
-var log = require('bunyan-hub-logger')({app: 'web', name: 'loader'});
 var express = require('express');
 var config = require('config');
 assert(config.dsAppRoot);
@@ -18,7 +17,6 @@ module.exports = function load(routerPrefix) {
     dsGlob.sync(DSC + '*/routers/'+routerPrefix+'.js').forEach(function (routerName) {
         console.log('loading router from file "' + routerName + '"');
         var routerPath = require.resolve(routerName);
-        log.trace('loading router ' + routerPath);
         var routerFactory = require(routerName);
         var routerModule = require.cache[routerPath];
         var router = express.Router();
