@@ -1,6 +1,6 @@
 {
   "name": "dysonshell",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "dysonshell frontend framework",
   "files": [
     "apiproxy.js",
