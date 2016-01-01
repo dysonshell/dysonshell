@@ -34,7 +34,7 @@
     "cookie-parser": "^1",
     "cpr": "^1.0.0",
     "ds-glob": "^1",
-    "ds-pack": "^1",
+    "ds-pack": "^1.2.3",
     "ds-render": "^2",
     "ds-require": "^1",
     "ecstatic": "^1",
