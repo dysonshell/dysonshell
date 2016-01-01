@@ -3,8 +3,6 @@
   "version": "1.0.10",
   "description": "dysonshell frontend framework",
   "files": [
-    "examples/init/",
-    "init.js",
     "apiproxy.js",
     "expose.js",
     "index.js",
@@ -12,12 +10,8 @@
     "instance.js",
     "request.js"
   ],
-  "directories": {
-    "example": "examples/init/"
-  },
   "main": "index.js",
   "scripts": {
-    "postinstall": "node init.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
