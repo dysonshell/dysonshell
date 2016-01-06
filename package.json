@@ -6,6 +6,7 @@
     "apiproxy.js",
     "expose.js",
     "index.js",
+    "build.js",
     "loader.js",
     "instance.js",
     "request.js"
@@ -34,7 +35,7 @@
     "cookie-parser": "^1",
     "ds-glob": "^1",
     "ds-pack": "^1.2.9",
-    "ds-render": "^2.2",
+    "ds-render": "^2.2.1",
     "ds-require": "^1",
     "ecstatic": "^1",
     "express-favicon": "^1",
