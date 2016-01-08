@@ -7,6 +7,7 @@ var config = require('config');
 var _ = require('lodash');
 var express = require('express');
 require('coexpress')(express);
+var dsAssets = require('ds-assets');
 
 var port = Number(process.env.PORT || config.port) || 4000;
 
@@ -22,11 +23,10 @@ if (config.dsBackendUrlPrefix) {
     ds.request(app, config.dsBackendUrlPrefix);
 }
 
-var dscPath = path.join(config.dsAppRoot, config.dsComponentPrefix);
-
 app.handle = (function (_handle) {
     return function () {
-        // these middlewares should be used in the end or all layers
+        // these middlewares should be used in the end of all layers
+        dsAssets.augmentApp(app);
         if (app.get('env') === 'development') {
             ds.watchify(app, port);
         } else {
@@ -35,16 +35,7 @@ app.handle = (function (_handle) {
 
         require('ds-render').augmentApp(app);
 
-        var ecstatic = require('ecstatic')({root: dscPath});
-        app.use('/' + config.dsComponentPrefix, function (req, res, next) {
-            if (req.url.match(/^\/[^\/]+\/(css|img|js)|^\/(global-)?common-[^\/]+\.js$/)) {
-                ecstatic(req, res, next);
-            } else {
-                next();
-            }
-        });
-
-        var faviconPath = path.join(dscPath, 'favicon.ico');
+        var faviconPath = path.join(config.dsAppRoot, 'favicon.ico');
         if (fs.existsSync(faviconPath)) {
             app.use(require('express-favicon')(faviconPath));
         }
