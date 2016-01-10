@@ -35,7 +35,7 @@
     "cookie-parser": "^1",
     "ds-assets": "^1.0.3",
     "ds-glob": "^1",
-    "ds-pack": "^1.3.2",
+    "ds-pack": "^1.3.4",
     "ds-render": "^2.2.1",
     "ds-require": "^1",
     "express-favicon": "^1",
