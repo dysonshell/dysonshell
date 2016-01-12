@@ -30,6 +30,7 @@
     "express": "^4"
   },
   "dependencies": {
+    "babel-preset-dysonshell": "^1.0.2",
     "bluebird": "^3.1.1",
     "coexpress": "^2",
     "conext": "^2",

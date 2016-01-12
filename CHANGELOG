@@ -1,0 +1,12 @@
+# CHANGELOG
+
+---
+以下顺序记录，都是不稳定版本，一路升级可能会有变化影响，好在目前只在少量内部项目用都还可控。计划在 1.3.0 开始稳定并对外发布，之后升级不会再出问题。
+
+## 1.0.x - 初始整理发布到 GitHub 和 npm 做成开源框架。将原本定死在 `dsc/` 目录先查询之后在 `node_modules/@dsc/` 目录查询的方式改成了 fallback 的配置，于是可以设置多个 fallback 目录。考虑不周把 `dsc/` 目录和 `config/` 目录放到 dsAppRoot 下而开发时和生产时编译到 `dev/dsc/`, `dev/config/` 和 `dist/dsc/`, `dist/config/` 下。这样导致在 `dsc/` 目录引用 dsAppRoot 下的目录书写时很自然地想写 `../` 但是改到 `dev/dsc/` 或 `dist/dsc/` 之后实际上应该写 `../../` 这就很令人费解。另外强制了 js 只能放到 `dsc/` 目录下但有可能会有不需要按 ds component 文件组织的代码。
+
+## 1.1.x 改进了前面的问题，统一要求源码写在 `src/` 目录下，主要在 `src/dsc/` 和 `src/config/`，也可有其他不遵从 ds component 文件结构的代码。
+
+## 1.2.0 增加了简单地整页缓存功能 cache.js，按 semver 应该跳 minor 版本号。
+
+## 1.2.1 修复了 babel-preset-dysonshell 里引用 plugin 的顺序，原来先后顺序是有影响的。现在可以 `a.js` 文件内 `export default () => 'hello'` 而 `b.js` 文件内 `require('./a.js')()` 了，之前必须 `require('./a.js').default()` 。
