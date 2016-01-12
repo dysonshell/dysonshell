@@ -1,5 +1,6 @@
 'use strict';
 
+exports.cache = require('./cache');
 exports.loader = require('./loader');
 exports.expose = require('./expose');
 exports.apiproxy = require('./apiproxy');

@@ -4,6 +4,7 @@
   "description": "dysonshell frontend framework",
   "files": [
     "apiproxy.js",
+    "cache.js",
     "expose.js",
     "index.js",
     "build.js",
