@@ -45,6 +45,7 @@
     "http-proxy": "^1",
     "lodash": "^3",
     "promisingagent": "^4",
+    "serve-static": "^1.10.0",
     "source-map-support": "^0.4.0"
   },
   "devDependencies": {

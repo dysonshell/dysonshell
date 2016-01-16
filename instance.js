@@ -27,7 +27,9 @@ if (config.dsBackendUrlPrefix) {
     ds.request(app, config.dsBackendUrlPrefix);
 }
 
+var serveStatic = require('serve-static');
 app.handle = (function (_handle) {
+    var st = serveStatic(path.join(config.dsAppRoot));
     return function () {
         // these middlewares should be used in the end of all layers
         dsAssets.augmentApp(app);
@@ -36,6 +38,13 @@ app.handle = (function (_handle) {
         } else {
             app.enable('view cache');
         }
+        app.use(function (req, res, next) {
+            if (req.path.match(/^\/ccc\/([^\/]+\/(css|js|img)\/|(global|common)-[^\/]+\.js$)/)) {
+                st(req, res, next);
+            } else {
+                next();
+            }
+        });
 
         require('ds-render').augmentApp(app);
 
