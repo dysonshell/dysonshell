@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "babel-preset-dysonshell": "^1.0.2",
-    "bluebird": "^3.1.1",
+    "bluebird": "^2.10.2",
     "coexpress": "^2",
     "conext": "^2",
     "cookie-parser": "^1",
