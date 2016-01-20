@@ -10,3 +10,9 @@
 ## 1.2.0 增加了简单地整页缓存功能 cache.js，按 semver 应该跳 minor 版本号。
 
 ## 1.2.1 修复了 babel-preset-dysonshell 里引用 plugin 的顺序，原来先后顺序是有影响的。现在可以 `a.js` 文件内 `export default () => 'hello'` 而 `b.js` 文件内 `require('./a.js')()` 了，之前必须 `require('./a.js').default()` 。
+
+## 1.2.2 为生产环境配置 serve-static，不推荐不用 nginx 和 cdn，但是这样即便没有 nginx 也能工作
+
+## 1.2.3 发现 bluebird@3 性能问题严重，统一降级成 bluebird@2
+
+## 1.2.4 升级 coexpress@3, breaking 风险应该比较小
