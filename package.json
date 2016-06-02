@@ -1,6 +1,6 @@
 {
   "name": "dysonshell",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "dysonshell frontend framework",
   "files": [
     "apiproxy.js",
@@ -37,7 +37,7 @@
     "cookie-parser": "^1",
     "ds-assets": "^1.0.3",
     "ds-glob": "^1",
-    "ds-pack": "^4",
+    "ds-pack": "^5.0.1",
     "ds-render": "^2.2.1",
     "ds-require": "^1",
     "express-favicon": "^1",
